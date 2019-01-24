@@ -1,7 +1,6 @@
 import numpy as np
 from PIL import Image
 from abc import abstractmethod
-import tensorflow as tf
 
 
 class Config:
@@ -10,15 +9,7 @@ class Config:
     NEED_EXTRA_NORM = False
 
 
-class InceptionV3Config:
-    BACKBONE = "InceptionV3"
-    DIM_FEATURE = 2048
-    NEED_EXTRA_NORM = True
-    INPUT_NODE = 'DecodeJpeg:0'
-    OUTPUT_NODE = 'pool_3/_reshape:0'
-
-
-class FeatureExtractor:
+class Extractor:
 
     def __init__(self, config):
         self.config = config
@@ -39,8 +30,9 @@ class FeatureExtractor:
         features = np.zeros((img_num, self.config.DIM_FEATURE), dtype=np.float32)
         for k, img_path in enumerate(img_path_list):
             img = self.img_read(img_path)
-            img = self.img_preprocess(img)
-            features[k, :] = self.forward(img)
+            data = self.img_preprocess(img)
+            features[k, :] = self.forward(data)
+            print(k)
         if self.config.NEED_EXTRA_NORM:
             features = self.norm_features(features)
         if save_features:
@@ -50,18 +42,3 @@ class FeatureExtractor:
     @abstractmethod
     def forward(self, img):
         pass
-
-
-class InceptionV3Extractor(FeatureExtractor):
-    def __init__(self, config, model_path):
-        super(InceptionV3Extractor, self).__init__(config=config)
-        graph_def = tf.GraphDef.FromString(open(model_path, 'rb').read())
-        tf.Graph().as_default()
-        tf.import_graph_def(graph_def, name='')
-        gpu_options = tf.GPUOptions(allow_growth=True)
-        sess_config = tf.ConfigProto(log_device_placement=False, gpu_options=gpu_options)
-        self.sess = tf.Session(config=sess_config)
-
-    def forward(self, img):
-        feature = self.sess.run(self.config.OUTPUT_NODE, feed_dict={self.config.INPUT_NODE: img})
-        return feature[0]
