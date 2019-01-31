@@ -1,0 +1,268 @@
+{% extends "base.html" %} {% block content %}
+
+
+<div>
+  <div style="margin: auto;">
+
+<div class="container">
+  <div class="container__item landing-page-container">
+    <div class="content__wrapper">
+      <div class="ellipses-container">
+        <h3 class="notes greeting">Numbpie</h3>
+        <p class="notes">Find Your Best Outfit</p>
+        <div class="container-fluid citytemp">
+          <div>
+            <a class="navbar-brand color00" href="#" id="city"></a>
+            <a class="navbar-brand color00" href="#" id="temp"></a>
+          </div>
+        </div>
+        <div class="ellipses ellipses__outer--thin">
+          <div class="ellipses ellipses__orbit"></div>
+        </div>
+        <div class="ellipses ellipses__outer--thick"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 class="center">Popular in this weather</h3><br>
+<div class="row lists">
+  <div class="col-md-4 list">
+    <div class="list_box">
+      <img src="../static/weather_img/top/10/1.jpeg" alt="..." style="max-height:100%; max-width:100%;" >
+    </div>
+    <hr class="line">
+    <div style="display: flex; justify-content: center;">
+      Top
+    </div>
+  </div>
+  <div class="col-md-4 list">
+    <div class="list_box">
+      <img src="../static/weather_img/pants/20/3.jpeg" alt="..." style="max-height:100%; max-width:100%;" >
+    </div>
+    <hr class="line">
+    <div style="display: flex; justify-content: center;">
+      Pants
+    </div>
+  </div>
+  <div class="col-md-4 list">
+    <div class="list_box">
+      <img src="../static/weather_img/shoes/4.jpeg" alt="..." style="max-height:100%; max-width:100%;" >
+    </div>
+    <hr class="line">
+    <div style="display: flex; justify-content: center;">
+      Shoes
+    </div>
+  </div>
+</div>
+<br><br>
+  </div>
+
+<div>
+  <h3 class="center">Now, find your style by...</h3><br>
+  <div class="center">
+    <a>	<button class="btn btn-info" id="show-popimg" style="margin: 5px;">Choosing from popular styles</button></a>
+    <div id="scroll_tree"
+    style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 450px; height: 670px; overflow: hidden; visibility: hidden; background-color: #24262e;">
+      <div data-u="slides"
+      style="cursor: default; position: relative; top: 0px; left: 0px; width: 450px; height: 580px; overflow: hidden;">
+      <div data-p="144.50">
+        <img data-u="image" src="../static/img/01.jpeg"/>
+      </div>
+      <div data-p="144.50" style="display: none;">
+        <img data-u="image" src="../static/img/02.jpeg"/>
+      </div>
+      <div data-p="144.50" style="display: none;">
+        <img data-u="image" src="../static/img/03.jpeg"/>
+      </div>
+      <div data-p="144.50" style="display: none;">
+        <img data-u="image" src="../static/img/04.jpeg"/>
+      </div>
+      <div data-p="144.50" style="display: none;">
+        <img data-u="image" src="../static/img/05.jpeg"/>
+      </div>
+      <div data-p="144.50" style="display: none;">
+        <img data-u="image" src="../static/img/06.jpeg"/>
+      </div>
+      </div>
+      <div data-u="thumbnavigator" class="jssort"
+      style="position:absolute;left:0px;bottom:0px;width:800px;height:100px;" data-autocenter="1">
+      <div data-u="slides" style="cursor: default;">
+        <div data-u="prototype" class="p">
+          <div class="w">
+            <div data-u="thumbnailtemplate" class="t"></div>
+          </div>
+          <div class="c"></div>
+        </div>
+      </div>
+      </div>
+      <span data-u="arrowleft" class="jssora05l" style="top:158px;left:8px;width:40px;height:40px;"></span>
+      <span data-u="arrowright" class="jssora05r" style="top:158px;right:8px;width:40px;height:40px;"></span>
+    </div>
+
+
+    <div class="row" style="color: #ccc; font-size: 16px; display: flex; justify-content: center; margin: 5px;">
+      or
+    </div>
+    <a>	<button class="btn btn-info" id="show-upload" style="margin: 5px;">Uploading your own style</button></a>
+    <div id="upload_sec">
+      <form id="upload-file" method="post" enctype="multipart/form-data">
+          <label for="imageUpload" class="upload-label">
+            Upload
+          </label>
+          <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+        </form>
+
+        <div class="center" style="display: flex; justify-content: center;">
+          <div class="image-section" style="display:none;">
+            <div class="img-preview">
+              <div id="imagePreview">
+              </div>
+            </div>
+            <div class="gan">
+              <form>
+                <div class="form-group">
+                  <input type="checkbox" id="gan_check">
+                  <label for="gan_check">Add Some Labels?</label>
+                </div>
+                <div class="container" id="dropdown" style="display: none;">
+                	    <div class="form-group col-md-12 center">
+                	        <label>Feature</label>
+                	        <select class="form-control select2" id="select_feature">
+                	           <option value="sleeve_length:3/4">Sleeve length: 3/4</option>
+                	           <option value="sleeve_length:long">Sleeve length: long</option>
+                	           <option value="sleeve_length:short">Sleeve length: short</option>
+                             <option value="sleeve_length:sleeveless">Sleeve length: sleeveless</option>
+                             <option value="fit:loose">Fit: loose</option>
+                             <option value="fit:normal">Fit: normal</option>
+                             <option value="fit:tight">Fit: tight</option>
+                             <option value="neckline:round">Neckline: round</option>
+                             <option value="neckline:v">Neckline: v</option>
+                             <option value="neckline:wide">Neckline: wide</option>
+                             <option value="">Skip</option>
+                	        </select>
+                	    </div>
+                      <div class="form-group col-md-12 center">
+                	        <label>Texture</label>
+                	        <select class="form-control select2" id="select_texture">
+                	           <option value="floral">Floral</option>
+                	           <option value="stripes">Stripes</option>
+                	           <option value="">Skip</option>
+                	        </select>
+                	    </div>
+                      <div class="form-group col-md-12 center">
+                	        <label>Action</label>
+                	        <select class="form-control select2" id="select_action">
+                	           <option value="add">Add</option>
+                	           <option value="remove">Remove</option>
+                	        </select>
+                	    </div>
+                </div>
+              </form>
+            </div>
+            <div>
+              <button type="button" class="upload-label" style="border-radius: 6px; margin-top: 10px;" id="btn-predict">
+                Find your best outfit!
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="display: flex; justify-content: center;">
+          <div class="loader" style="display:none;"></div>
+        </div>
+    </div>
+  </div>
+</div>
+<br><br>
+
+<div id="result">
+  <h3 class="center">Similar styles we've found for you</h3><br>
+
+  <div class="row lists center">
+    <div class="col-md-1"></div>
+    <div class="col-md-2 list">
+      <div class="list_box">
+        <img id="rec1_img" src="../static/rec_images/rec1.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <h5 class="center" id="accuracy1">0.6625</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 list">
+      <div class="list_box">
+        <img id="rec2_img" src="../static/rec_images/rec2.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <h5 class="center" id="accuracy2">0.5893</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 list">
+      <div class="list_box">
+        <img id="rec3_img" src="../static/rec_images/rec3.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <h5 class="center" id="accuracy3">0.5542</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 list">
+      <div class="list_box">
+        <img id="rec4_img" src="../static/rec_images/rec4.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <h5 class="center" id="accuracy4">0.4988</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 list">
+      <div class="list_box">
+        <img id="rec5_img" src="../static/rec_images/rec5.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <h5 class="center" id="accuracy5">0.4800</h5>
+        </div>
+      </div>
+    </div>
+  </div><br><br>
+
+  <h3 class="center" id="gan_info_label">And here's how we did it</h3><br>
+
+  <div class="row lists center" id="gan_info_sec" style="display: none;">
+    <div class="col-md-4 list">
+      <div class="list_box">
+        <img src="../static/gan_info_img/1.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+    </div>
+    <div class="col-md-4 list">
+      <div class="list_box">
+        <img src="../static/gan_info_img/2.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+    </div>
+    <div class="col-md-4 list">
+      <div class="list_box">
+        <img src="../static/gan_info_img/3.jpg" alt="..." style="max-height:100%; max-width:100%;" >
+      </div>
+      <hr class="line">
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+{% endblock %}

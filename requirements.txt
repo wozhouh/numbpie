@@ -1,0 +1,9 @@
+Werkzeug
+Flask
+numpy
+gevent
+pillow
+tensorflow>=1.10.0
+pytorch>=1.0.0
+sklearn
+opencv-python

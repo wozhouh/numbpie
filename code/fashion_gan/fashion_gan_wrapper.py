@@ -42,11 +42,35 @@ class FashionGANWrapper:
         modifier = Modifier('/home/doggie/camp/deploy/code/fashion_gan/data/models/')
         self.app = FashionGANApp(modifier, dress_resnet50, model_resnet50)
 
-    def generate(self, img, attr):
+    def generate(self, img, attr, save_img=True):
 
-        img_gan_1 = self.app._modifier.modify_shape(img, attr[0], attr[1])
-        img_gan_2 = self.app._modifier.modify_pattern(img_gan_1, attr[2], attr[3])
-        img_gan_3 = self.app._modifier.product_to_model(img_gan_2)
+        # GAN 1
+        if not attr[0] == '':
+            img_gan_1 = self.app._modifier.modify_shape(img, attr[0], attr[1])
+        else:
+            img_gan_1 = img
+
+        # GAN 2
+        if not attr[2] == '':
+            img_gan_2 = self.app._modifier.modify_pattern(img_gan_1, attr[2], attr[3])
+        else:
+            img_gan_2 = img_gan_1
+
+        # GAN 3
+        if attr[0] == '' and attr[2] == '':
+            img_gan_3 = img_gan_2
+            save_img = False
+        else:
+            img_gan_3 = self.app._modifier.product_to_model(img_gan_2)
+
+        if save_img:
+            img_save_dir = '/home/doggie/camp/deploy/web/numbpie/static/gan_info_img'
+            img_gan_1_save_path = os.path.join(img_save_dir, '1.jpg')
+            img_gan_2_save_path = os.path.join(img_save_dir, '2.jpg')
+            img_gan_3_save_path = os.path.join(img_save_dir, '3.jpg')
+            img_gan_1.save(img_gan_1_save_path)
+            img_gan_2.save(img_gan_2_save_path)
+            img_gan_3.save(img_gan_3_save_path)
 
         return img_gan_3
 

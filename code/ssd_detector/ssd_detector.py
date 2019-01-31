@@ -51,8 +51,7 @@ class SSD_model:
                                                              self.config.ANCHOR_SIZES, self.config.ANCHOR_RATIOS,
                                                              self.config.ANCHOR_STEPS, self.config.ANCHOR_OFFSET)
 
-    def detect(self, img_path):
-        img = mpimg.imread(img_path)
+    def detect(self, img):
         input_feed_dict = {self.config.INPUT_NODE: img}
         outputs_list = self.sess.run(self.config.OUTPUT_NODES, feed_dict=input_feed_dict)
         rlocalisations = outputs_list[:self.config.NUM_LEVELS]
