@@ -101,10 +101,3 @@ if __name__ == '__main__':
     #     # Search
     #     img_idx = searcher.s_searcher.find_similar_idx(feature_q, top_k=20, clip_th=0.70)
     #     searcher.s_searcher.copy_img2dir(img_idx)
-
-    """
-    runtime
-    """
-    # while True:
-    #     if
-
